@@ -67915,32 +67915,8 @@ var _layer = require("ol/layer");
 
 var _source = require("ol/source");
 
-var _control = require("ol/control");
-
-var _MousePosition = _interopRequireDefault(require("ol/control/MousePosition"));
-
-var _coordinate = require("ol/coordinate");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mousePositionControl4326 = new _MousePosition.default({
-  coordinateFormat: (0, _coordinate.createStringXY)(4),
-  projection: "EPSG:4326",
-  // comment the following two lines to have the mouse position
-  // be placed within the map.
-  className: "custom-mouse-position",
-  target: document.getElementById("EPSG:4326"),
-  undefinedHTML: "&nbsp;"
-});
-var mousePositionControl3857 = new _MousePosition.default({
-  coordinateFormat: (0, _coordinate.createStringXY)(4),
-  projection: "EPSG:3857",
-  // comment the following two lines to have the mouse position
-  // be placed within the map.
-  className: "custom-mouse-position",
-  target: document.getElementById("EPSG:3857"),
-  undefinedHTML: "&nbsp;"
-});
 var raster = new _layer.Tile({
   source: new _source.OSM()
 });
@@ -67951,7 +67927,6 @@ var vector = new _layer.Vector({
   source: source
 });
 var map = new _Map.default({
-  controls: (0, _control.defaults)().extend([mousePositionControl4326, mousePositionControl3857]),
   layers: [raster, vector],
   target: "map",
   view: new _View.default({
@@ -67959,24 +67934,20 @@ var map = new _Map.default({
     zoom: 2
   })
 });
-var draw; // global so we can remove it later
-
 map.on("click", function (evt) {
-  var coords = (0, _proj.toLonLat)(evt.coordinate);
-  console.log(evt.coordinate);
   var lat4326 = evt.coordinate[1];
   var lon4326 = evt.coordinate[0];
+  var coords = (0, _proj.toLonLat)(evt.coordinate);
   var lat3857 = coords[1];
   var lon3857 = coords[0];
   var locTxt4326 = "Latitude: " + lat4326 + " Longitude: " + lon4326;
-  var locTxt3857 = "Latitude: " + lat3857 + " Longitude: " + lon3857; // coords is a div in HTML below the map to display
-
+  var locTxt3857 = "Latitude: " + lat3857 + " Longitude: " + lon3857;
   document.getElementById("clickedPoint3857").innerHTML = locTxt3857;
   document.getElementById("clickedPoint4326").innerHTML = locTxt4326;
 });
 
 function addInteraction() {
-  draw = new _Draw.default({
+  var draw = new _Draw.default({
     source: source,
     type: "Point"
   });
@@ -67984,7 +67955,7 @@ function addInteraction() {
 }
 
 addInteraction();
-},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/proj":"node_modules/ol/proj.js","ol/interaction/Draw":"node_modules/ol/interaction/Draw.js","ol/layer":"node_modules/ol/layer.js","ol/source":"node_modules/ol/source.js","ol/control":"node_modules/ol/control.js","ol/control/MousePosition":"node_modules/ol/control/MousePosition.js","ol/coordinate":"node_modules/ol/coordinate.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/proj":"node_modules/ol/proj.js","ol/interaction/Draw":"node_modules/ol/interaction/Draw.js","ol/layer":"node_modules/ol/layer.js","ol/source":"node_modules/ol/source.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

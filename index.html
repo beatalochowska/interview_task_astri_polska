@@ -1,35 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Draw Features</title>
-    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <title>Interview Task</title>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <style>
       .map {
         width: 100%;
-        height: 400px;
+        height: 600px;
       }
     </style>
   </head>
   <body>
+    <script src="index.js" defer></script>
+
     <div id="map" class="map"></div>
     <div>
-      <p>EPSG: 3857:</p>
-      <p id="EPSG:3857"></p>
+      <p>
+        <span>EPSG: 3857:</span>
+        <span id="clickedPoint3857"></span>
+      </p>
+      <p>
+        <span>EPSG: 4326:</span>
+        <span id="clickedPoint4326"></span>
+      </p>
     </div>
-    <div>
-      <p>EPSG: 4326:</p>
-      <p id="EPSG:4326"></p>
-    </div>
-
-    <div>
-      Last clicked point:
-      <p>EPSG: 3857:</p>
-      <p id="clickedPoint3857"></p>
-      <p>EPSG: 4326:</p>
-      <p id="clickedPoint4326"></p>
-    </div>
-
-    <script src="index.js"></script>
   </body>
 </html>
