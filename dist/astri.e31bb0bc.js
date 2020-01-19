@@ -67925,6 +67925,11 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+var VIEW_DEFAULT_SETTINGS = {
+  projection: "EPSG:3857",
+  center: [0, 0],
+  zoom: 2
+};
 var raster = new _layer.Tile({
   source: new _source.OSM()
 });
@@ -67937,38 +67942,28 @@ var vector = new _layer.Vector({
 var map = new _Map.default({
   layers: [raster, vector],
   target: "map",
-  view: new _View.default({
-    projection: "EPSG:3857",
-    center: [0, 0],
-    zoom: 2
-  })
+  view: new _View.default(VIEW_DEFAULT_SETTINGS)
 });
 map.on("click", function (event) {
   var _event$coordinate = _slicedToArray(event.coordinate, 2),
       lon4326 = _event$coordinate[0],
       lat4326 = _event$coordinate[1];
 
+  var locTxt4326 = "Latitude: ".concat(lat4326, " Longitude: ").concat(lon4326);
   var coords = (0, _proj.toLonLat)(event.coordinate);
 
   var _coords = _slicedToArray(coords, 2),
       lon3857 = _coords[0],
       lat3857 = _coords[1];
 
-  var locTxt4326 = "Latitude: ".concat(lat4326, " Longitude: ").concat(lon4326);
   var locTxt3857 = "Latitude: ".concat(lat3857, " Longitude: ").concat(lon3857);
-  document.getElementById("clickedPoint3857").innerHTML = locTxt3857;
   document.getElementById("clickedPoint4326").innerHTML = locTxt4326;
+  document.getElementById("clickedPoint3857").innerHTML = locTxt3857;
 });
-
-function addInteraction() {
-  var draw = new _Draw.default({
-    source: source,
-    type: "Point"
-  });
-  map.addInteraction(draw);
-}
-
-addInteraction();
+map.addInteraction(new _Draw.default({
+  source: source,
+  type: "Point"
+}));
 },{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/proj":"node_modules/ol/proj.js","ol/interaction/Draw":"node_modules/ol/interaction/Draw.js","ol/layer":"node_modules/ol/layer.js","ol/source":"node_modules/ol/source.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
