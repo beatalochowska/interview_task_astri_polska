@@ -67917,6 +67917,14 @@ var _source = require("ol/source");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var raster = new _layer.Tile({
   source: new _source.OSM()
 });
@@ -67930,18 +67938,24 @@ var map = new _Map.default({
   layers: [raster, vector],
   target: "map",
   view: new _View.default({
+    projection: "EPSG:3857",
     center: [0, 0],
     zoom: 2
   })
 });
-map.on("click", function (evt) {
-  var lat4326 = evt.coordinate[1];
-  var lon4326 = evt.coordinate[0];
-  var coords = (0, _proj.toLonLat)(evt.coordinate);
-  var lat3857 = coords[1];
-  var lon3857 = coords[0];
-  var locTxt4326 = "Latitude: " + lat4326 + " Longitude: " + lon4326;
-  var locTxt3857 = "Latitude: " + lat3857 + " Longitude: " + lon3857;
+map.on("click", function (event) {
+  var _event$coordinate = _slicedToArray(event.coordinate, 2),
+      lon4326 = _event$coordinate[0],
+      lat4326 = _event$coordinate[1];
+
+  var coords = (0, _proj.toLonLat)(event.coordinate);
+
+  var _coords = _slicedToArray(coords, 2),
+      lon3857 = _coords[0],
+      lat3857 = _coords[1];
+
+  var locTxt4326 = "Latitude: ".concat(lat4326, " Longitude: ").concat(lon4326);
+  var locTxt3857 = "Latitude: ".concat(lat3857, " Longitude: ").concat(lon3857);
   document.getElementById("clickedPoint3857").innerHTML = locTxt3857;
   document.getElementById("clickedPoint4326").innerHTML = locTxt4326;
 });
